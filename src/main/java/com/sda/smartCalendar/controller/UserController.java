@@ -153,6 +153,17 @@ public class UserController {
         return "badUser";
     }
 
+    @GetMapping("/forgot")
+    public String forgotPassword() {
+        return "forgot";
+    }
+
+
+    @PostMapping("/forgot")
+    public String sendPassword() {
+        return "nopage";
+    }
+
     @GetMapping("/profile")
     public String showProfie(Model model, Principal principal){
         model.addAttribute("userProfile",userService.findUserByEmail(principal.getName()));
