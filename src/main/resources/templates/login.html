@@ -7,8 +7,6 @@
 
 <body>
 <div id="app">
-
-
     <section class="section">
         <div class="container mt-5">
 
@@ -34,7 +32,7 @@
                                     <input id="email" type="email" class="form-control" name="username" tabindex="1"
                                            autofocus="autofocus" required='required'/>
                                     <div class="invalid-feedback">
-                                        Please fill in your email
+                                        Podaj email
                                     </div>
                                 </div>
 
@@ -62,7 +60,7 @@
 
 
                             <div class="form-group">
-                                <form action="/connect/facebook" method="POST" style="display: inline">
+                                <form th:action="@{/connect/facebook}" method="POST" style="display: inline">
                                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                                     <input type="hidden" name="scope" value="public_profile,email"/>
                                     <button type="submit" class="btn btn-block"
@@ -73,7 +71,7 @@
                             </div>
 
                             <div class="form-group">
-                                <form action="/connect/google" method="POST" style="display: inline">
+                                <form th:action="@{/connect/google}" method="POST" style="display: inline">
                                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                                     <input type="hidden" name="scope" value="profile email"/>
                                     <button type="submit" class="btn btn-danger btn-block" tabindex="4">
@@ -87,7 +85,7 @@
 
                     </div>
                     <div class="mt-5 text-muted text-center">
-                        Nie masz konta? <a href="registration.html">Zarejestruj się</a>
+                        Nie masz konta? <a th:href="@{registration}">Zarejestruj się</a>
                     </div>
                     <div class="simple-footer">
                         Copyright &copy; Smart Calendar 2018

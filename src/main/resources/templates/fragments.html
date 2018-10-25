@@ -46,7 +46,7 @@
                     <a href="profile.html" class="dropdown-item has-icon">
                         <i class="ion ion-android-person"></i> Profil
                     </a>
-                    <a href="#" class="dropdown-item has-icon">
+                    <a th:href="@{/logout}" class="dropdown-item has-icon">
                         <i class="ion ion-log-out"></i> Wyloguj
                     </a>
                 </div>
@@ -58,7 +58,7 @@
 <div class="main-sidebar" th:fragment="sidebar">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="index.html">SMART CALENDAR</a>
+            <a th:href="@{/index}">SMART CALENDAR</a>
         </div>
         <div class="sidebar-user">
             <div class="sidebar-user-picture">
@@ -97,10 +97,10 @@
                 <a th:href="@{/profile}"><i class="ion-ios-color-wand"></i><span>Edytuj mój profil</span></a>
             </li>
             <li>
-                <a href="table.html"><i class="ion-gear-b"></i><span>Ustawienia</span></a>
+                <a th:href="@{/nopage}"><i class="ion-gear-b"></i><span>Ustawienia</span></a>
             </li>
             <li>
-                <a th:href="@{/login}"><i class="ion-power"></i><span>Wyloguj</span></a>
+                <a th:href="@{/logout}"><i class="ion-power"></i><span>Wyloguj</span></a>
             </li>
         </ul>
     </aside>
