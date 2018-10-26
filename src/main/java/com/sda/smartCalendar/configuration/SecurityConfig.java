@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -19,7 +20,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/h2/**", "/scheduleEmail");
+		web.ignoring().antMatchers("/h2/**", "/scheduleEmail","/static/**", "/css/**", "/img/**", "/js/**", "/modules/**");
 	}
 
 //	@Override
@@ -32,19 +33,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/css/**", "/connect/**","/greeting").permitAll()
-				.antMatchers("/secure/**")
-				.authenticated()
-				.and()
+		http.authorizeRequests().antMatchers( "/connect/**","/greeting","/google","/facebook","/forgot/**","/registration/**","/terms","/badUser/**","/registrationConfirm*","/login*").permitAll()
+				.anyRequest().authenticated().and()
 				.formLogin()
 				.loginPage("/login")
 				.defaultSuccessUrl("/index")
 				.failureUrl("/login-error")
 				.permitAll()
-				.and()
-				.logout()
-				.permitAll();
+				.and().logout()
+				.clearAuthentication(true)
+				.logoutUrl("/logout")
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+				.logoutSuccessUrl("/")
+				.invalidateHttpSession(true);
 	}
+
+
+
+
+
 
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {

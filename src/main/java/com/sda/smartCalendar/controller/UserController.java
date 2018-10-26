@@ -66,7 +66,7 @@ public class UserController {
         return googleProvider.getGoogleUserData(model, new User());
     }
 
-    @RequestMapping(value = {"/", "/login"})
+    @RequestMapping(value = {"/login"})
     public String login() {
         return "login";
     }
@@ -81,7 +81,7 @@ public class UserController {
         return "logout";
     }
 
-    @GetMapping("/index")
+    @GetMapping("/")
     public String showMainPage(Model model, Principal principal) {
         model.addAttribute("loggedInUser", userService.findByEmail(principal.getName()));
         return "index";
@@ -151,6 +151,17 @@ public class UserController {
     @GetMapping("/badUser")
     public String badUser() {
         return "badUser";
+    }
+
+    @GetMapping("/forgot")
+    public String forgotPassword() {
+        return "forgot";
+    }
+
+
+    @PostMapping("/forgot")
+    public String sendPassword() {
+        return "nopage";
     }
 
     @GetMapping("/profile")
