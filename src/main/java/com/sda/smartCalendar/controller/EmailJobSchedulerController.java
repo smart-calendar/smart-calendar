@@ -56,7 +56,7 @@ public class EmailJobSchedulerController {
         scheduleEmailRequest.setSubject(eventDTO.getName());
         scheduleEmailRequest.setBody("Przypominamy o twoim wydarzeniu: " +  eventDTO.getName() +"\n"
                 + eventDTO.getDescription() + "\n\n\nWiadomość wysłana z aplikacji Smart-Calendar"  );
-        return "notification2";
+        return "notification";
     }
 
 
