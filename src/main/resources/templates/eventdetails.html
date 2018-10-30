@@ -74,7 +74,8 @@
                                     </div>
 
                                     <div class="card-footer text-right">
-                                        <a class="btn btn-info btn-action mr-1" data-toggle="tooltip"
+                                        <a th:href="${'/notification/' + eventDTO.getId()}"
+                                           class="btn btn-info btn-action mr-1" data-toggle="tooltip"
                                            title="Przypomnienie"><i class="ion-ios-alarm-outline"></i></a>
                                         <a th:href="${'/editevent/' + eventDTO.getId()}"
                                            class="btn btn-primary btn-action mr-1" data-toggle="tooltip"

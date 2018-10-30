@@ -1,9 +1,13 @@
 package com.sda.smartCalendar.controller;
 
 
+import com.sda.smartCalendar.controller.modelDTO.EventDTO;
+import com.sda.smartCalendar.domain.model.User;
 import com.sda.smartCalendar.job.EmailJob;
 import com.sda.smartCalendar.payload.ScheduleEmailRequest;
 import com.sda.smartCalendar.payload.ScheduleEmailResponse;
+import com.sda.smartCalendar.service.EventService;
+import com.sda.smartCalendar.service.UserService;
 import org.quartz.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.TimeZone;
@@ -27,28 +32,45 @@ public class EmailJobSchedulerController {
     @Autowired
     private Scheduler scheduler;
 
-    @GetMapping(value = "/scheduleEmail") //{eventId}
-    public String showForm(Model model) { //@PathVariable("eventId") String eventId
-        ScheduleEmailRequest scheduleEmailRequest = new ScheduleEmailRequest();
+    @Autowired
+    private UserService userService;
 
+    @Autowired
+    private EventService eventService;
+
+    @ModelAttribute("loggedInUser")
+    public User user(Principal principal) {
+        return userService.findByEmail(principal.getName());
+    }
+
+    @GetMapping(value = "/notification/{id}") //{eventId}
+    public String showForm(Model model, Principal principal, @PathVariable("id") UUID id) { //@PathVariable("eventId") String eventId
+        ScheduleEmailRequest scheduleEmailRequest = new ScheduleEmailRequest();
+        EventDTO eventDTO = eventService.findEventByID(id);
 
 
 
         model.addAttribute("schedulerEmailRequest", scheduleEmailRequest);
-        return "notification";
+        scheduleEmailRequest.setEmail(principal.getName());
+        scheduleEmailRequest.setDateTime(eventDTO.getEvent_start());
+        scheduleEmailRequest.setSubject(eventDTO.getName());
+        scheduleEmailRequest.setBody("Przypominamy o twoim wydarzeniu: " +  eventDTO.getName() +"\n"
+                + eventDTO.getDescription() + "\n\n\nWiadomość wysłana z aplikacji Smart-Calendar"  );
+        return "notification2";
     }
 
 
 
 
 
-    @PostMapping("/scheduleEmail") //{eventId}
+    @PostMapping("/notification") //{eventId}
     public ResponseEntity<ScheduleEmailResponse> scheduleEmail(@Valid @RequestBody @ModelAttribute (value = "schedulerEmailRequest")
                                          ScheduleEmailRequest scheduleEmailRequest) { //@PathVariable("eventId") String eventId
         try {
+            //EventDTO eventDTO = eventService.findEventByID(id);
             TimeZone timeZone = TimeZone.getDefault();
             scheduleEmailRequest.setTimeZone(timeZone.toZoneId());
-            System.out.println(scheduleEmailRequest.getTimeZone());
+            //System.out.println(scheduleEmailRequest.getTimeZone());
             ZonedDateTime dateTime = ZonedDateTime.of(scheduleEmailRequest.getDateTime(), scheduleEmailRequest.getTimeZone());
             if(dateTime.isBefore(ZonedDateTime.now())) {
                 ScheduleEmailResponse scheduleEmailResponse = new ScheduleEmailResponse(false,
