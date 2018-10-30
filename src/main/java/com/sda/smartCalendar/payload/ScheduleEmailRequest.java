@@ -6,6 +6,7 @@ package com.sda.smartCalendar.payload;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -22,10 +23,10 @@ public class ScheduleEmailRequest {
     @NotEmpty
     private String body;
 
-    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime dateTime;
 
-    @NotNull
+
     private ZoneId timeZone;
 
     public String getEmail() {
