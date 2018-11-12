@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<!-- Links head -->
+<head th:replace="fragments::head"></head>
+
+<body>
+<div id="app">
+    <div class="main-wrapper">
+
+        <head th:replace="fragments::navbar"></head>
+        <head th:replace="fragments::sidebar"></head>
+
+        <div class="main-content">
+            <section class="section">
+                <h1 class="section-header">
+                    <div>Lista zakupów</div>
+                </h1>
+                <div class="section-body">
+                    <div class="row">
+                        <div class="col-12 col-md-12 col-lg-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Nadchodzące</h4>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <tr>
+                                                <th>Nazwa wydarzenia</th>
+                                                <th>Początek</th>
+                                                <th>Koniec</th>
+                                                <th>Kategoria</th>
+                                                <th>Szczegóły</th>
+                                                <th>Edycja</th>
+                                            </tr>
+
+                                            <tr th:each="event: ${eventList}">
+                                                <td th:text="${event.getName()}"></td>
+                                                <td type="datetime-local" th:text="${event.getEvent_start()}"></td>
+                                                <td type="datetime-local" th:text="${event.getEvent_finish()}"></td>
+                                                <td th:text="${event.getCategory()}"></td>
+                                                <td><a th:href="${'/showevents/' + event.getId()}" class="btn btn-action btn-info">Szczegóły</a></td>
+                                                <td><a th:href="${'/editevent/' + event.getId()}" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edytuj"><i class="ion ion-edit"></i></a>
+                                                <a th:href="${'/delete/' + event.getId()}" class="btn btn-danger btn-action" data-toggle="tooltip" title="Usuń"><i class="ion ion-trash-b"></i></a></td>
+                                            </tr>
+
+
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="card-footer text-right">
+                                    <nav class="d-inline-block">
+                                        <ul class="pagination mb-0">
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="#" tabindex="-1"><i
+                                                        class="ion ion-chevron-left"></i></a>
+                                            </li>
+                                            <li class="page-item active"><a class="page-link" href="#">1 <span
+                                                    class="sr-only">(current)</span></a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">2</a>
+                                            </li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#"><i class="ion ion-chevron-right"></i></a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer th:replace="fragments::footer"></footer>
+
+    </div>
+</div>
+
+
+<script src="/modules/jquery.min.js"></script>
+<script src="/modules/popper.js"></script>
+<script src="/modules/tooltip.js"></script>
+<script src="/modules/bootstrap/js/bootstrap.min.js"></script>
+<script src="/modules/nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/modules/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
+<script src="/js/sa-functions.js"></script>
+
+<script src="/modules/chart.min.js"></script>
+<script src="/modules/summernote/summernote-lite.js"></script>
+
+<script src="/js/scripts.js"></script>
+<script src="/js/custom.js"></script>
+<script src="/js/demo.js"></script>
+
+</body>
+</html>

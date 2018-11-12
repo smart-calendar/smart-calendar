@@ -6,5 +6,5 @@
     <!-- Based on https://medium.com/@harittweets/evolving-your-database-using-spring-boot-and-liquibase-844fcd7931da -->
 
     <include file="changelog/01-initialChangeset.xml" relativeToChangelogFile="true"/>
-
+    <include file="changelog/02-shoppingList.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
