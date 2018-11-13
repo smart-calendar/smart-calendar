@@ -1,9 +1,11 @@
 package com.sda.smartCalendar.service;
 
 import com.sda.smartCalendar.controller.modelDTO.EventDTO;
+import com.sda.smartCalendar.controller.modelDTO.ProductDTO;
 import com.sda.smartCalendar.controller.modelDTO.UserDTO;
 import com.sda.smartCalendar.controller.modelDTO.UserRegistrationDTO;
 import com.sda.smartCalendar.domain.model.Event;
+import com.sda.smartCalendar.domain.model.Product;
 import com.sda.smartCalendar.domain.model.User;
 import org.springframework.stereotype.Service;
 
@@ -57,6 +59,22 @@ public class MappingService {
         userRegistrationDTO.setProvider(user.getProvider());
         userRegistrationDTO.setPhoneNumber(user.getPhoneNumber());
         return userRegistrationDTO;
+    }
+
+    public ProductDTO map (Product product){
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setId(product.getId());
+        productDTO.setName(product.getName());
+        productDTO.setUser(product.getUser());
+        return productDTO;
+    }
+
+    public Product map (ProductDTO productDTO){
+        Product product = new Product();
+        product.setId(productDTO.getId());
+        product.setName(productDTO.getName());
+        product.setUser(productDTO.getUser());
+        return product;
     }
 
 }

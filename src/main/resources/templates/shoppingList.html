@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<!-- Links head -->
+<head th:replace="fragments::head"></head>
+
+<body>
+<div id="app">
+    <div class="main-wrapper">
+
+        <head th:replace="fragments::navbar"></head>
+        <head th:replace="fragments::sidebar"></head>
+
+        <div class="main-content">
+            <section class="section">
+                <h1 class="section-header">
+                    <div>Lista zakupów</div>
+                </h1>
+                <div class="section-body">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-md-4 col-lg-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Moja lista</h4>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <tr th:each="product: ${productList}">
+                                                <td th:text="${product.getName()}" style= "text-align: center" ></td>
+                                                <td><a th:href="${'/deleteproduct/' + product.getId()}"
+                                                class="btn btn-danger btn-action" style="float: right" data-toggle="tooltip"
+                                                title="Usuń"><i class="ion ion-trash-b"></i></a></td>
+                                            </tr>
+                                        </table>
+                                        <div><a th:href="${'/deletelist'}"
+                                                class="btn btn-primary" style="align-items: center" data-toggle="tooltip"
+                                                title="Usuń listę">Usuń całą listę</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4 col-lg-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Najczęściej kupowane</h4>
+                                </div>
+                                <div class="card-body p-0">
+                                    <form th:action="@{/shoppinglist/add}" method="post"
+                                          th:object="${one}">
+                                        <div class="table-responsive">
+
+                                            <select id="product" th:field="*{name}"
+                                                    class="form-control form-control-lg">
+                                                <option th:each="oneProduct: ${popular}"
+                                                        th:value="${oneProduct.getName()}"
+                                                        th:text="${'   ' + oneProduct.getName()}">
+                                                </option>
+                                            </select>
+                                            <button type="submit" class="btn btn-primary">Zapisz</button>
+
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Dodaj nowy produkt</h4>
+                                </div>
+                                <div class="card-body p-0">
+                                    <form th:action="@{/shoppinglist/add}" method="post"
+                                          th:object="${one}">
+                                        <div class="table-responsive">
+
+                                            <div class="form-group">
+                                            <!--<label for="text">Dodaj produkt...</label>-->
+                                            <textarea class="form-control" id="text" th:field="*{name}"
+                                            placeholder="Muszę jeszczę kupić...">
+                                            </textarea></div>
+
+                                            <button type="submit" class="btn btn-primary">Zapisz</button>
+
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer th:replace="fragments::footer"></footer>
+
+    </div>
+</div>
+
+
+<script src="/modules/jquery.min.js"></script>
+<script src="/modules/popper.js"></script>
+<script src="/modules/tooltip.js"></script>
+<script src="/modules/bootstrap/js/bootstrap.min.js"></script>
+<script src="/modules/nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/modules/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
+<script src="/js/sa-functions.js"></script>
+
+<script src="/modules/chart.min.js"></script>
+<script src="/modules/summernote/summernote-lite.js"></script>
+
+<script src="/js/scripts.js"></script>
+<script src="/js/custom.js"></script>
+
+</body>
+</html>
