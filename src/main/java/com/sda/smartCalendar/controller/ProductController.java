@@ -52,4 +52,12 @@ public class ProductController {
         productService.deleteProduct(id);
         return "redirect:/shoppinglist";
     }
+
+    @Transactional
+    @GetMapping("/deletelist")
+    public String deleteList(){
+        productService.deleteList();
+        return "redirect:/shoppinglist";
+    }
+
 }

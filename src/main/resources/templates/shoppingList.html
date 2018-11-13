@@ -18,8 +18,8 @@
                     <div>Lista zakupów</div>
                 </h1>
                 <div class="section-body">
-                    <div class="row">
-                        <div class="col-12 col-md-6 col-lg-6">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-md-4 col-lg-4">
                             <div class="card">
                                 <div class="card-header">
                                     <h4>Moja lista</h4>
@@ -28,17 +28,20 @@
                                     <div class="table-responsive">
                                         <table class="table table-striped">
                                             <tr th:each="product: ${productList}">
-                                                <td th:text="${product.getName()}"></td>
+                                                <td th:text="${product.getName()}" style= "text-align: center" ></td>
                                                 <td><a th:href="${'/deleteproduct/' + product.getId()}"
                                                 class="btn btn-danger btn-action" style="float: right" data-toggle="tooltip"
                                                 title="Usuń"><i class="ion ion-trash-b"></i></a></td>
                                             </tr>
                                         </table>
+                                        <div><a th:href="${'/deletelist'}"
+                                                class="btn btn-primary" style="align-items: center" data-toggle="tooltip"
+                                                title="Usuń listę">Usuń całą listę</a></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-md-6 col-lg-6">
+                        <div class="col-12 col-md-4 col-lg-4">
                             <div class="card">
                                 <div class="card-header">
                                     <h4>Najczęściej kupowane</h4>
@@ -48,16 +51,10 @@
                                           th:object="${one}">
                                         <div class="table-responsive">
 
-                                            <!--<div class="form-group">-->
-                                            <!--<label for="text">Dodaj produkt...</label>-->
-                                            <!--<textarea class="form-control" id="text" th:field="*{name}"-->
-                                            <!--placeholder="Podziel się z nami swoim osiągnięciem!">-->
-                                            <!--</textarea></div>-->
-
-                                            <select id="category" th:field="*{name}"
+                                            <select id="product" th:field="*{name}"
                                                     class="form-control form-control-lg">
                                                 <option th:each="oneProduct: ${popular}"
-                                                        th:value="${oneProduct}"
+                                                        th:value="${oneProduct.getName()}"
                                                         th:text="${'   ' + oneProduct.getName()}">
                                                 </option>
                                             </select>
