@@ -63,13 +63,17 @@ public class MappingService {
 
     public ProductDTO map (Product product){
         ProductDTO productDTO = new ProductDTO();
+        productDTO.setId(product.getId());
         productDTO.setName(product.getName());
+        productDTO.setUser(product.getUser());
         return productDTO;
     }
 
     public Product map (ProductDTO productDTO){
         Product product = new Product();
+        product.setId(productDTO.getId());
         product.setName(productDTO.getName());
+        product.setUser(productDTO.getUser());
         return product;
     }
 

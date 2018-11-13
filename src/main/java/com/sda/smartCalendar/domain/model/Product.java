@@ -1,26 +1,31 @@
 package com.sda.smartCalendar.domain.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = {"user"})
+@ToString(exclude = {"user"})
 public class Product {
 
     @Id
-    private Long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Type(type = "uuid-char")
+    private UUID id;
 
     @Column
     private String name;
-
-    public Product(String name){
-        this.name=name;
-    }
 
     @ManyToOne
     @JoinColumn(name="user_email")
